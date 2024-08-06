@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FebaFriends</string>
+    <string name="OpenDrawer">Open Navigation Drawer</string>
+    <string name="CloseDrawer">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aboutus">EBA web radio is a Non-denominational Gospel radio with a passion and a mission to broadcast Hope.
+        We are addressing the issues of individuals, youth, women, families, and communities and build trusted relationships with our audience.
+        We are addressing different social issues and assisting communities through social actions such as education, health care, disaster relief, spiritual and economic development.
+        We are sharing God’s love in remote areas as well as in urban and most advanced cities in order to bridge the gaps among different communities.
+        Our programs are on air through FM and Internet in the heart languages of our audience.
+        We are trying to reach the unreached or least reached areas with the unchanging Word of God through our broadcasts. </string>
+</resources>

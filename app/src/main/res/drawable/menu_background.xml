@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+
+                <shape android:shape="rectangle">
+                    <solid android:color="#DC1212" /> />
+                </shape>
+            </item>
+            <item
+                android:left="8dp"
+                android:top="4dp"
+                android:right="8dp"
+                android:bottom="4dp">
+
+                <shape android:shape="rectangle">
+                    <solid android:color="#DC1212" />
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+
+    <item android:state_checked="false">
+        <layer-list>
+            <item>
+
+                <shape android:shape="rectangle">
+                    <solid android:color="#CECACA" />
+                </shape>
+            </item>
+            <item
+                android:left="8dp"
+                android:top="4dp"
+                android:right="8dp"
+                android:bottom="4dp">
+                <!-- Actual item background -->
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFFFFF" /> <!-- White background for unselected item -->
+                    <corners android:radius="12dp" /> <!-- Rounded corners -->
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+</selector>
