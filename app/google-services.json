@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235980769969",
+    "project_id": "febafriends-1889f",
+    "storage_bucket": "febafriends-1889f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235980769969:android:23f8934b0262d29bd23090",
+        "android_client_info": {
+          "package_name": "com.example.febafriends"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmhLxJA4HDpiaJkCEtsS6zcUwRwI7ssXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

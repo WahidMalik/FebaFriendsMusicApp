@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#D1CDCD"
-    tools:context=".HomeFragment">
+    android:fitsSystemWindows="true"
+    tools:context=".SongsList">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarSongs"
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_43sdp"
+            android:background="#1B1B1B"
+            >
+
+            <TextView
+                android:id="@+id/Songs"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
-        android:background="#383838"
+        android:background="#1B1B1B"
         android:gravity="center">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imageView1"
             android:layout_height="@dimen/_100sdp"
             android:layout_width="@dimen/_100sdp"
             android:src="@drawable/headerpic"
@@ -29,7 +55,7 @@
     </LinearLayout>
 
     <SearchView
-        android:id="@+id/search_view"
+        android:id="@+id/search_viewsong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_corner"
@@ -39,10 +65,13 @@
         android:focusableInTouchMode="true"
         android:iconifiedByDefault="false"
         />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoryRecycleView"
+        android:id="@+id/songsrecycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/category_layout"
+        tools:listitem="@layout/songs_layout"
+        android:layout_marginTop="@dimen/_10sdp"
         />
-    </LinearLayout>
+
+</LinearLayout>
