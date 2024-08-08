@@ -1,5 +1,6 @@
 package com.example.febafriends
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,10 @@ class SongsAdapter(private val songList : List<String>) : RecyclerView.Adapter<S
                     val song = it.toObject(SongsData::class.java)
                     song?.apply {
                         binding.songName.text = title
+                        binding.layoutNamesong.setOnClickListener {
+                            Exoplayer.startPlaying(binding.root.context,song)
+                            it.context.startActivity(Intent(it.context,SongPlay::class.java))
+                        }
                     }
                 }.addOnFailureListener {
 
