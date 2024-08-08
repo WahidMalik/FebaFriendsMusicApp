@@ -3,7 +3,9 @@ package com.example.febafriends
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.febafriends.databinding.ActivitySongsListBinding
@@ -20,6 +22,8 @@ class SongsList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySongsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         setSupportActionBar(binding.toolbarSongs)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
