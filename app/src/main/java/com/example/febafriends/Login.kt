@@ -1,5 +1,6 @@
 package com.example.febafriends
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
@@ -8,26 +9,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.febafriends.databinding.ActivitySignUpBinding
+import com.example.febafriends.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.util.regex.Pattern
 
-class SignUp : AppCompatActivity() {
+class Login : AppCompatActivity() {
 
-    lateinit var binding : ActivitySignUpBinding
+    lateinit var binding : ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.createAccount.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
+        binding.loginButton.setOnClickListener {
+            val email = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            val confirmPassword = binding.confirmPasswordEditText.text.toString()
-
             if(!Pattern.matches(Patterns.EMAIL_ADDRESS.pattern(), email)){
-                binding.emailEditText.error = "Invalid Email"
+                binding.usernameEditText.error = "Invalid Email"
                 return@setOnClickListener
             }
 
@@ -36,30 +35,39 @@ class SignUp : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if(password != confirmPassword){
-                binding.confirmPasswordEditText.error = "Password not matched"
-                return@setOnClickListener
-            }
-            
-            createAccountFirebase(email,password)
 
+
+            loginWithFirebase(email,password)
+        }
+        binding.dontaccountaccount.setOnClickListener {
+            finish()
         }
 
 
     }
-
-    fun createAccountFirebase(email : String, password : String){
+    fun loginWithFirebase(email : String, password : String){
         progressbar(true)
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
             .addOnSuccessListener {
                 progressbar(false)
-                Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this,MainActivity::class.java))
                 finish()
             }.addOnFailureListener {
                 progressbar(false)
-                Toast.makeText(this, "Create Account Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login Account Failed", Toast.LENGTH_SHORT).show()
             }
     }
+
+    override fun onResume(){
+        super.onResume()
+        FirebaseAuth.getInstance().currentUser?.apply {
+            startActivity(Intent(this@Login,MainActivity::class.java))
+            finish()
+        }
+
+    }
+
+
 
     fun progressbar(inProgress : Boolean){
         if(inProgress){
@@ -68,5 +76,4 @@ class SignUp : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
 }

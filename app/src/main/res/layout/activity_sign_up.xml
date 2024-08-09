@@ -17,13 +17,21 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:src="@drawable/headerpic" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:background="@drawable/transparentlayout"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         >
 
         <ImageView
@@ -132,6 +140,8 @@
         android:clickable="true"
         android:layout_marginTop="@dimen/_10sdp"
         />
+
+
 
 
 </LinearLayout>

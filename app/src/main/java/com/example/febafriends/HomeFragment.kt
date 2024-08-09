@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
 
 
 
+
     }
 
     fun getCategoryData(){

@@ -1,5 +1,6 @@
 package com.example.febafriends
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -9,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.example.febafriends.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,8 +67,12 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(PrivacyPolicyFragment())
                 }
                 R.id.login -> {
-                    toolbarTextView.text = "Login"
-                    loadFragment(LoginFragment())
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                }
+                R.id.logout -> {
+                    logOut()
+                    true
                 }
             }
             drawerLayout.closeDrawers()
@@ -88,7 +95,16 @@ class MainActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.content_frame, fragment)
             transaction.commit()
-
+    }
+    fun logOut(){
+        Exoplayer.getInstance()?.release()
+        FirebaseAuth.getInstance().signOut()
+        startActivity(Intent(this, Login::class.java))
+        finish()
+    }
+    override fun onResume() {
+        super.onResume()
 
     }
+
 }

@@ -31,4 +31,9 @@
         android:id="@+id/login"
         android:title="Login"
         />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        />
+
 </menu>
