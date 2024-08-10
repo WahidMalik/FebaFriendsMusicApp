@@ -54,21 +54,7 @@
             />
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        app:boxStrokeColor="@color/red"
-        app:hintTextColor="@color/red"
-        android:hint="Search category">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/songsrecycleView"

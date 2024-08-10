@@ -55,7 +55,7 @@
         app:show_timeout="0"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_60sdp"
         android:visibility="visible"
         />
 

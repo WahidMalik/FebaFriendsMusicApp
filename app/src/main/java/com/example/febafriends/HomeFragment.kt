@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
                 }
 
                 categoryAdapter.categoryList = filteredData
-                categoryAdapter.notifyDataSetChanged() // Notify adapter of data change
+                categoryAdapter.notifyDataSetChanged()
             }
         })
     }

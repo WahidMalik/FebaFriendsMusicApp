@@ -40,8 +40,5 @@ class SongsAdapter(private var songList: List<String>) : RecyclerView.Adapter<So
         holder.bindData(songList[position])
     }
 
-    fun updateSongs(newSongList: List<String>) {
-        songList = newSongList
-        notifyDataSetChanged() // Notify adapter of data change
-    }
+
 }

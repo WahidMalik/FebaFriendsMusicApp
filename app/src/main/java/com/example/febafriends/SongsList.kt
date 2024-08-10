@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
@@ -36,7 +35,6 @@ class SongsList : AppCompatActivity() {
 
         binding.Songs.text = category.name
         setupRecyclerView()
-        setupSearchView()
     }
 
     private fun setupRecyclerView() {
@@ -46,35 +44,5 @@ class SongsList : AppCompatActivity() {
         binding.songsrecycleView.adapter = songsAdapter
     }
 
-    private fun setupSearchView() {
-        binding.searchView.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No action needed here
-            }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No action needed here
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val query = s.toString()
-                val filteredSongs = if (query.isNotEmpty()) {
-                    originalSongsList.filter { song ->
-                        // Perform a case-insensitive match or use other criteria as needed
-                        song.lowercase().contains(query.lowercase())
-                    }
-                } else {
-                    originalSongsList
-                }
-
-                if (filteredSongs.isEmpty()) {
-                    binding.songsrecycleView.visibility = View.GONE
-                } else {
-                    binding.songsrecycleView.visibility = View.VISIBLE
-                }
-
-                songsAdapter.updateSongs(filteredSongs)
-            }
-        })
-    }
 }
