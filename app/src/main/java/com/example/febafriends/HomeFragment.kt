@@ -1,6 +1,8 @@
 package com.example.febafriends
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +13,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
 
-    // Declare a nullable binding variable
     private var _binding: FragmentHomeBinding? = null
     private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var originalCategoryList: List<CategoryModel>
 
-    // Use a non-nullable version of the binding with a getter
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,43 +27,63 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment using the binding class
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        // Return the root view from the binding object
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         getCategoryData()
 
+        binding.searchView.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No action needed here
+            }
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No action needed here
+            }
 
+            override fun afterTextChanged(s: Editable?) {
+                val query = s.toString()
+                val filteredData = if (query.isNotEmpty()) {
+                    originalCategoryList.filter { it.name.lowercase().contains(query.lowercase()) }
+                } else {
+                    originalCategoryList
+                }
 
+                if (filteredData.isEmpty()) {
+                    binding.categoryRecycleView.visibility = View.GONE
+                } else {
+                    binding.categoryRecycleView.visibility = View.VISIBLE
+                }
 
+                categoryAdapter.categoryList = filteredData
+                categoryAdapter.notifyDataSetChanged() // Notify adapter of data change
+            }
+        })
     }
 
-    fun getCategoryData(){
+    private fun getCategoryData() {
         FirebaseFirestore.getInstance().collection("category")
-            .get().addOnSuccessListener {
-                val categoryList = it.toObjects(CategoryModel::class.java)
-                setRecycleView(categoryList)
-
-
-            }.addOnFailureListener {
-
+            .get().addOnSuccessListener { result ->
+                originalCategoryList = result.toObjects(CategoryModel::class.java)
+                setRecyclerView(originalCategoryList)
+            }.addOnFailureListener { exception ->
+                // Handle the error here
             }
     }
 
-    fun setRecycleView(categoryList : List<CategoryModel>){
+    private fun setRecyclerView(categoryList: List<CategoryModel>) {
         categoryAdapter = CategoryAdapter(categoryList)
         binding.categoryRecycleView.adapter = categoryAdapter
         val layoutManager = LinearLayoutManager(requireContext())
         binding.categoryRecycleView.layoutManager = layoutManager
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
