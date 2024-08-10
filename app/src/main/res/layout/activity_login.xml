@@ -12,24 +12,24 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circularImageView"
         android:layout_width="@dimen/_270sdp"
-        android:layout_height="@dimen/_250sdp"
+        android:layout_height="@dimen/_230sdp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_30sdp"
         android:src="@drawable/headerpic" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:background="@drawable/transparentlayout"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_70sdp">
+        android:layout_marginTop="@dimen/_30sdp">
 
         <ImageView
             android:id="@+id/username_icon"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            android:background="@drawable/user"
+            android:src="@drawable/user"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_10sdp" />
 
@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="User Name"
+            android:clickable="true"
             android:layout_marginLeft="@dimen/_10sdp"
             android:textSize="@dimen/_13ssp"
             android:background="@android:color/transparent"
@@ -47,7 +48,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:background="@drawable/transparentlayout"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
@@ -76,14 +77,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_25sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_20sdp">
+        android:layout_marginRight="@dimen/_25sdp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:background="@drawable/loginbutton"
             android:text="Login"
             android:textColor="#FFF"

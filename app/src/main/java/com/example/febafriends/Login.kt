@@ -22,6 +22,8 @@ class Login : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+
+
         binding.loginButton.setOnClickListener {
             val email = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
