@@ -39,7 +39,9 @@ class Login : AppCompatActivity() {
 
             loginWithFirebase(email,password)
         }
-        binding.dontaccountaccount.setOnClickListener {
+
+        binding.donthaveaccount.setOnClickListener {
+            startActivity(Intent(this, SignUp::class.java))
             finish()
         }
 
@@ -50,7 +52,7 @@ class Login : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
             .addOnSuccessListener {
                 progressbar(false)
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this@Login,MainActivity::class.java))
                 finish()
             }.addOnFailureListener {
                 progressbar(false)
@@ -72,8 +74,10 @@ class Login : AppCompatActivity() {
     fun progressbar(inProgress : Boolean){
         if(inProgress){
             binding.progressBar.visibility = View.VISIBLE
+            binding.loginButton.visibility = View.GONE
         }else{
             binding.progressBar.visibility = View.GONE
+            binding.loginButton.visibility = View.VISIBLE
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.febafriends
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
@@ -45,6 +46,11 @@ class SignUp : AppCompatActivity() {
 
         }
 
+        binding.alreadyaccount.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
@@ -57,15 +63,17 @@ class SignUp : AppCompatActivity() {
                 finish()
             }.addOnFailureListener {
                 progressbar(false)
-                Toast.makeText(this, "Create Account Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Already have this Account", Toast.LENGTH_SHORT).show()
             }
     }
 
     fun progressbar(inProgress : Boolean){
         if(inProgress){
             binding.progressBar.visibility = View.VISIBLE
+            binding.createAccount.visibility = View.GONE
         }else{
             binding.progressBar.visibility = View.GONE
+            binding.createAccount.visibility = View.VISIBLE
         }
     }
 
