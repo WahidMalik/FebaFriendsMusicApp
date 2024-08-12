@@ -43,6 +43,9 @@ class SignUp : AppCompatActivity() {
             }
             
             createAccountFirebase(email,password)
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+
 
         }
 
