@@ -54,21 +54,52 @@
             />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/categoryEditText"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/songTitleEditText"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="wrap_content"/>
 
-
-    <Button
-        android:id="@+id/uploadSongs"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload Songs"
-        />
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/categoryEditText"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_1sdp"/>
+
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"
+            />
+
+
+
+        <EditText
+            android:id="@+id/songTitleEditText"
+            android:layout_width="@dimen/_150sdp"
+            android:background="@drawable/transparentlayout"
+            android:hint="Enter Song name"
+            android:padding="@dimen/_5sdp"
+            android:layout_height="@dimen/_33sdp"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/uploadSongs"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="wrap_content"
+            android:text="Select song"
+            android:textColor="#FFF"
+            android:textAllCaps="false"
+            android:background="@drawable/selectsongbutton"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            />
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

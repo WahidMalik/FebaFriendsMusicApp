@@ -4,6 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +37,25 @@ class AdminPanel : AppCompatActivity() {
         binding.toolbarAdminPanel.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        val categories = arrayOf("English", "Urdu", "Hamd-o-sana", "Pashto","Punjabi","Sindhi","Siraiki","Urdu audio Bible")
+        val adapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinner.adapter = adapter
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedCategory = parent.getItemAtPosition(position).toString()
+                binding.categoryEditText.setText(selectedCategory)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
+
+
 
         binding.uploadSongs.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -99,7 +121,7 @@ class AdminPanel : AppCompatActivity() {
         )
         songRef.set(songData)
             .addOnSuccessListener {
-                // Add song to category
+
                 addSongToCategory(category, songRef.id)
                 Toast.makeText(this, "Song Added to Firestore", Toast.LENGTH_SHORT).show()
             }
@@ -114,7 +136,7 @@ class AdminPanel : AppCompatActivity() {
 
         categoryRef.get().addOnSuccessListener { document ->
             if (document.exists()) {
-                // Update the existing document
+
                 val songs = document.get("songs") as? List<String> ?: emptyList()
                 val updatedSongs = songs.toMutableList().apply {
                     add(songId)
@@ -127,11 +149,11 @@ class AdminPanel : AppCompatActivity() {
                         Toast.makeText(this, "Failed to Update Category: ${exception.message}", Toast.LENGTH_SHORT).show()
                     }
             } else {
-                // Create a new document with the song
+
                 val newCategory = mapOf("songs" to listOf(songId))
                 categoryRef.set(newCategory)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Song Added to Category", Toast.LENGTH_SHORT).show()
+
                     }                    .addOnFailureListener { exception ->
                         Toast.makeText(this, "Failed to Add to Category: ${exception.message}", Toast.LENGTH_SHORT).show()
                     }
