@@ -28,12 +28,9 @@
        />
 
     <item
-        android:id="@+id/login"
-        android:title="Login"
+        android:id="@+id/admin"
+        android:title="Admin"
         />
-    <item
-        android:id="@+id/logout"
-        android:title="Logout"
-        />
+
 
 </menu>

@@ -66,14 +66,11 @@ class MainActivity : AppCompatActivity() {
                     toolbarTextView.text = "Privacy Policy"
                     loadFragment(PrivacyPolicyFragment())
                 }
-                R.id.login -> {
-                    val intent = Intent(this, Login::class.java)
-                    startActivity(intent)
+                R.id.admin -> {
+                    toolbarTextView.text = "Admin Login"
+                    loadFragment(AdminLogin())
                 }
-                R.id.logout -> {
-                    logOut()
-                    true
-                }
+
             }
             drawerLayout.closeDrawers()
             true
@@ -96,12 +93,7 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.content_frame, fragment)
             transaction.commit()
     }
-    fun logOut(){
-        Exoplayer.getInstance()?.release()
-        FirebaseAuth.getInstance().signOut()
-        startActivity(Intent(this, Login::class.java))
-        finish()
-    }
+
     override fun onResume() {
         super.onResume()
 

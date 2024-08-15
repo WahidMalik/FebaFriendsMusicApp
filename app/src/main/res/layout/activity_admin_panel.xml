@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".AdminPanel">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarAdminPanel"
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_43sdp"
+            android:background="#1B1B1B"
+            >
+
+            <TextView
+                android:id="@+id/textAdminToolbar"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:background="#1B1B1B"
+        android:gravity="center">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:src="@drawable/headerpic"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="15dip"
+            app:riv_border_width="1dip"
+            app:riv_border_color="#333333"
+            app:riv_mutate_background="true"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/categoryEditText"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/songTitleEditText"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/uploadSongs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Songs"
+        />
+
+</LinearLayout>
