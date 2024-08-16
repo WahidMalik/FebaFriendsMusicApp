@@ -3,8 +3,7 @@ package com.example.febafriends
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.febafriends.databinding.ActivityChapterListBinding
 
 class ChapterListActivity : AppCompatActivity() {
@@ -13,7 +12,10 @@ class ChapterListActivity : AppCompatActivity() {
         lateinit var bibleList: Subcategory
     }
 
-    lateinit var binding: ActivityChapterListBinding
+    private lateinit var binding: ActivityChapterListBinding
+    private lateinit var adapter: BibleAdapter
+    private lateinit var originalSongsList: List<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,5 +28,12 @@ class ChapterListActivity : AppCompatActivity() {
         binding.bible.text = bibleList.name
         binding.toolbarChapter.navigationIcon?.setTint(resources.getColor(android.R.color.holo_red_dark))
 
+
+        originalSongsList = bibleList.bile
+
+        adapter = BibleAdapter(originalSongsList)
+        binding.biblerecycleView.adapter = adapter
+        binding.biblerecycleView.layoutManager = LinearLayoutManager(this)
+        binding.biblerecycleView.adapter=adapter
     }
 }
