@@ -16,10 +16,10 @@ class SongsAdapter(private var songList: List<String>) : RecyclerView.Adapter<So
                     val songData = it.toObject(SongsData::class.java)
                     songData?.apply {
                         binding.songName.text = title
-                        binding.layoutNamesong.setOnClickListener {
-                            Exoplayer.startPlaying(binding.root.context, songData)
-                            it.context.startActivity(Intent(it.context, SongPlay::class.java))
-                        }
+                            binding.layoutNamesong.setOnClickListener {
+                                Exoplayer.startPlaying(binding.root.context, songData)
+                                it.context.startActivity(Intent(it.context, SongPlay::class.java))
+                            }
                     }
                 }.addOnFailureListener {
                     // Handle failure

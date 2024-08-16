@@ -20,8 +20,7 @@
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_43sdp"
-            android:background="#1B1B1B"
-            >
+            android:background="#1B1B1B">
 
             <TextView
                 android:id="@+id/textAdminToolbar"
@@ -32,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </androidx.appcompat.widget.Toolbar>
-
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -50,31 +48,48 @@
             app:riv_corner_radius="15dip"
             app:riv_border_width="1dip"
             app:riv_border_color="#333333"
-            app:riv_mutate_background="true"
-            />
+            app:riv_mutate_background="true"/>
     </LinearLayout>
 
+    <!-- Option Selector -->
+    <RadioGroup
+        android:id="@+id/radioGroupOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <RadioButton
+            android:id="@+id/radioButtonSong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Song"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonBible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Bible"/>
+    </RadioGroup>
+
+    <!-- Song Upload Layout -->
     <LinearLayout
+        android:id="@+id/songUploadLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        >
+        android:visibility="gone"
+        android:gravity="center">
+
         <EditText
             android:id="@+id/categoryEditText"
             android:layout_width="@dimen/_1sdp"
             android:layout_height="@dimen/_1sdp"/>
 
-
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_margin="@dimen/_10sdp"
-            />
-
-
+            android:layout_margin="@dimen/_10sdp"/>
 
         <EditText
             android:id="@+id/songTitleEditText"
@@ -83,7 +98,6 @@
             android:hint="Enter Song name"
             android:padding="@dimen/_5sdp"
             android:layout_height="@dimen/_33sdp"/>
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/uploadSongs"
@@ -94,12 +108,47 @@
             android:textAllCaps="false"
             android:background="@drawable/selectsongbutton"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            />
-
-
+            android:layout_marginBottom="@dimen/_10sdp"/>
     </LinearLayout>
 
+    <!-- Bible Upload Layout -->
+    <LinearLayout
+        android:id="@+id/bibleUploadLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
 
+        <EditText
+            android:id="@+id/categorEditText"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_1sdp"/>
+
+        <Spinner
+            android:id="@+id/biblespinner"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"/>
+
+        <EditText
+            android:id="@+id/bibleEditText"
+            android:layout_width="@dimen/_150sdp"
+            android:background="@drawable/transparentlayout"
+            android:hint="Enter Bible name"
+            android:padding="@dimen/_5sdp"
+            android:layout_height="@dimen/_33sdp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/uploadbible"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="wrap_content"
+            android:text="Select Bible"
+            android:textColor="#FFF"
+            android:textAllCaps="false"
+            android:background="@drawable/selectsongbutton"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -13,8 +13,15 @@ class CategoryAdapter(var categoryList: List<CategoryModel>) : RecyclerView.Adap
             binding.categoryName.text = category.name
             val context = binding.root.context
             binding.layoutName.setOnClickListener {
-                SongsList.category = category
-                context.startActivity(Intent(context, SongsList::class.java))
+
+                if(category.name == "Urdu Audio Bible"){
+                    context.startActivity(Intent(context, BibleList::class.java))
+                    return@setOnClickListener
+                }
+                else {
+                    SongsList.category = category
+                    context.startActivity(Intent(context, SongsList::class.java))
+                }
             }
         }
     }

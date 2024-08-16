@@ -16,10 +16,18 @@
         android:theme="@style/Theme.FebaFriends"
         tools:targetApi="31">
         <activity
+            android:name=".ChapterListActivity"
+            android:exported="false"
+            android:parentActivityName=".BibleList"
+            />
+        <activity
+            android:name=".BibleList"
+            android:exported="false"
+            />
+        <activity
             android:name=".AdminPanel"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SongPlay"
             android:exported="false"

@@ -25,7 +25,7 @@ class SongPlay : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         binding.toolbarSongPlay.navigationIcon?.setTint(ContextCompat.getColor(this, android.R.color.holo_red_dark))
 
-        Exoplayer.currentSong()?.apply {
+        Exoplayer.currentSong?.apply {
             binding.toolbarplaysongname.text = title
             exoPlayer = Exoplayer.getInstance()!!
             binding.pViewlayer.player = exoPlayer

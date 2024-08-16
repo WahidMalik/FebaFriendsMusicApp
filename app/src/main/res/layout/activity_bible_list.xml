@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".BibleList">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarBiblelist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1B1B1B">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/toolbarbiblelist"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFF"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"/>
+            </FrameLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:background="#1B1B1B"
+        android:gravity="center">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:src="@drawable/headerpic"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="15dip"
+            app:riv_border_width="1dip"
+            app:riv_border_color="#333333"
+            app:riv_mutate_background="true"
+            />
+    </LinearLayout>
+    
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/biblerecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/songs_layout"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+
+</LinearLayout>
