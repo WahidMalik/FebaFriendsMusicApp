@@ -94,13 +94,13 @@ class AdminPanel : AppCompatActivity() {
         binding.uploadSongs.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "audio/*"
-            songsLauncher.launch(intent.toString())
+            songsLauncher.launch("audio/*")
         }
 
         binding.uploadbible.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "audio/*"
-            bibleLauncher.launch(intent.toString())
+            bibleLauncher.launch("audio/*")
         }
     }
 
@@ -136,18 +136,18 @@ class AdminPanel : AppCompatActivity() {
     private val bibleLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
             val fileName = getFileName(it)
-            val storageRef = FirebaseStorage.getInstance().reference.child("bibles/$fileName")
+            val storageRef = FirebaseStorage.getInstance().reference.child("songs/$fileName")
             storageRef.putFile(it)
                 .addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
                         val db = FirebaseFirestore.getInstance()
-                        val bibleCategory = binding.bibleEditText.text.toString() // Use the selectedBible name here
+                        val bibleCategory = binding.bibleEditText.text.toString()
                         val bible = hashMapOf(
                             "id" to fileName,
                             "title" to fileName,
                             "url" to downloadUrl.toString()
                         )
-                        db.collection("bibles").document(bibleCategory).collection("bibles").add(bible)
+                        db.collection("songs").document(bibleCategory).collection("songs").add(bible)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Bible uploaded successfully", Toast.LENGTH_SHORT).show()
                             }

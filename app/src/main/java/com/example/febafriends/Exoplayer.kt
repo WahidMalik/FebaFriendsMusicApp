@@ -29,19 +29,7 @@ object Exoplayer {
         }
     }
 
-    fun startPlaying(context: Context, bibleData: Bibledata?) {
-        val songData = convertBibleDataToSongData(bibleData)
-        startPlaying(context, songData)
-    }
 
-    private fun convertBibleDataToSongData(bibleData: Bibledata?): SongsData? {
-        return bibleData?.let {
-            SongsData(
-                id = it.id,
-                title = it.title,
-                url = it.url
 
-            )
-        }
-    }
+
 }

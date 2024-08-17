@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class BibleList : AppCompatActivity() {
 
     private lateinit var binding: ActivityBibleListBinding
-    private lateinit var adapter: SubcategoryAdapter
+    private lateinit var adapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,18 +29,18 @@ class BibleList : AppCompatActivity() {
 
     fun getBibleData() {
         FirebaseFirestore.getInstance().collection("Bible")
-        .get().addOnSuccessListener { result ->
-            val biblelist = result.toObjects(Subcategory::class.java)
-            setRecyclerView(biblelist)
-        }.addOnFailureListener { exception ->
-            // Handle the error here
-        }
+            .get().addOnSuccessListener { result ->
+                val biblelist = result.toObjects(CategoryModel::class.java)
+                setRecyclerView(biblelist)
+            }.addOnFailureListener { exception ->
+                // Handle the error here
+            }
     }
 
 
 
-    private fun setRecyclerView(biblelist: List<Subcategory>) {
-        adapter = SubcategoryAdapter(biblelist)
+    private fun setRecyclerView(biblelist: List<CategoryModel>) {
+        adapter = CategoryAdapter(biblelist)
         binding.biblerecycleView.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         binding.biblerecycleView.layoutManager = layoutManager
