@@ -33,7 +33,7 @@ class AdminPanel : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbarAdminPanel.navigationIcon?.setTint(ContextCompat.getColor(this, android.R.color.holo_red_dark))
-        binding.textAdminToolbar.text = "Admin Panel"
+        binding.textAdminToolbar.text = "Admin"
 
         binding.radioButtonSong.setOnClickListener {
             binding.bibleUploadLayout.visibility = View.GONE
@@ -56,9 +56,37 @@ class AdminPanel : AppCompatActivity() {
         }
 
         val categories = arrayOf("Urdu", "Sindhi", "Punjabi","English","Pashto","Hamd-o-sana","Sindhi","Siraiki")
-        val bibles = arrayOf("Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1Corinthians", "2Corinthians", "Galatians",
-            "Ephesians", "Philippians", "Colossians", "1Thessalonians", "2Thessalonians", "1Timothy", "2Timothy", "Titus", "Philemon",
-            "Hebrews", "James", "1Peter", "2Peter", "1John", "2John", "3John", "Jude", "Revelation")
+
+        val bibles = arrayOf(
+            "a)   Mathew",
+            "b)   Mark",
+            "c)   Luke",
+            "d)   John",
+            "e)   Acts",
+            "f)   Romans",
+            "g)   1Corinthians",
+            "h)   2Corinthians",
+            "i)   Galatians",
+            "j)   Ephesians",
+            "k)   Philippians",
+            "l)   Colossians",
+            "m)   1Thessalonians",
+            "n)   2Thessalonians",
+            "o)   1Timothy",
+            "p)   2Timothy",
+            "q)   Titus",
+            "r)   Philemon",
+            "s)   Hebrews",
+            "t)   James",
+            "u)   1Peter",
+            "v)   2Peter",
+            "w)   1John",
+            "x)   2John",
+            "y)   3John",
+            "z)   Jude",
+            "z)   Revelation"
+        )
+
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

@@ -13,7 +13,7 @@ class AdminLogin : Fragment() {
 
     private lateinit var binding: FragmentAdminLoginBinding
     val adminUsername: String = "admin"
-    val adminPassword:String = "admin"
+    val adminPassword:String = "Admin@786"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
