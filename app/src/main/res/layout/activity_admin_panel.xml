@@ -71,22 +71,16 @@
             android:text="Upload Bible"/>
     </RadioGroup>
 
-    <!-- Song Upload Layout -->
+
     <LinearLayout
         android:id="@+id/songUploadLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
         android:gravity="center">
 
-        <EditText
-            android:id="@+id/categoryEditText"
-            android:layout_width="@dimen/_1sdp"
-            android:layout_height="@dimen/_1sdp"/>
-
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/categorySpinner"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_10sdp"/>
@@ -120,13 +114,8 @@
         android:visibility="gone"
         android:gravity="center">
 
-        <EditText
-            android:id="@+id/categorEditText"
-            android:layout_width="@dimen/_1sdp"
-            android:layout_height="@dimen/_1sdp"/>
-
         <Spinner
-            android:id="@+id/biblespinner"
+            android:id="@+id/bibleSpinner"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_10sdp"/>
@@ -140,7 +129,7 @@
             android:layout_height="@dimen/_33sdp"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/uploadbible"
+            android:id="@+id/uploadBible"
             android:layout_width="@dimen/_90sdp"
             android:layout_height="wrap_content"
             android:text="Select Bible"

@@ -18,10 +18,7 @@
         <activity
             android:name=".BibleChapter"
             android:exported="false" />
-        <activity
-            android:name=".ChapterListActivity"
-            android:exported="false"
-            android:parentActivityName=".BibleList" />
+
         <activity
             android:name=".BibleList"
             android:exported="false" />

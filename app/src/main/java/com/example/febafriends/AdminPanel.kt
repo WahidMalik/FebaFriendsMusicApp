@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,12 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.example.febafriends.databinding.ActivityAdminPanelBinding
 import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 
 class AdminPanel : AppCompatActivity() {
     lateinit var binding: ActivityAdminPanelBinding
-    private var selectedBible: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,143 +35,186 @@ class AdminPanel : AppCompatActivity() {
         binding.toolbarAdminPanel.navigationIcon?.setTint(ContextCompat.getColor(this, android.R.color.holo_red_dark))
         binding.textAdminToolbar.text = "Admin Panel"
 
+        binding.radioButtonSong.setOnClickListener {
+            binding.bibleUploadLayout.visibility = View.GONE
+            binding.songUploadLayout.visibility = View.VISIBLE
+        }
+
+        binding.radioButtonBible.setOnClickListener {
+            binding.songUploadLayout.visibility = View.GONE
+            binding.bibleUploadLayout.visibility = View.VISIBLE
+        }
+
+
+
+
+
+
+
         binding.toolbarAdminPanel.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        // Initialize categories for the Song Spinner
-        val songCategories = arrayOf("English", "Urdu", "Hamd-o-sana", "Pashto","Punjabi","Sindhi","Siraiki","Urdu audio Bible")
-        val songAdapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, songCategories)
-        songAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinner.adapter = songAdapter
+        val categories = arrayOf("Urdu", "Sindhi", "Punjabi","English","Pashto","Hamd-o-sana","Sindhi","Siraiki")
+        val bibles = arrayOf("Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1Corinthians", "2Corinthians", "Galatians",
+            "Ephesians", "Philippians", "Colossians", "1Thessalonians", "2Thessalonians", "1Timothy", "2Timothy", "Titus", "Philemon",
+            "Hebrews", "James", "1Peter", "2Peter", "1John", "2John", "3John", "Jude", "Revelation")
 
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedCategory = parent.getItemAtPosition(position).toString()
-                binding.categoryEditText.setText(selectedCategory)
-            }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.categorySpinner.adapter = adapter
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
+        val bibleadapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bibles)
+        bibleadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.bibleSpinner.adapter = bibleadapter
 
-        // Initialize Bible options for the Spinner
-        val bibleBooks = arrayOf(
-            "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1Corinthians", "2Corinthians",
-            "Galatians", "Ephesians", "Philippians", "Colossians", "1Thessalonians", "2Thessalonians",
-            "1Timothy", "2Timothy", "Titus", "Philemon", "Hebrews", "James", "1Peter", "2Peter",
-            "1John", "2John", "3John", "Jude", "Revelation"
-        )
-        val bibleAdapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, bibleBooks)
-        bibleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.biblespinner.adapter = bibleAdapter
-
-        binding.biblespinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                selectedBible = parent.getItemAtPosition(position).toString()
-                binding.bibleEditText.setText(selectedBible)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
-
-        binding.radioGroupOptions.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.radioButtonSong -> {
-                    binding.songUploadLayout.visibility = View.VISIBLE
-                    binding.bibleUploadLayout.visibility = View.GONE
-                }
-                R.id.radioButtonBible -> {
-                    binding.songUploadLayout.visibility = View.GONE
-                    binding.bibleUploadLayout.visibility = View.VISIBLE
-                }
-            }
-        }
 
         binding.uploadSongs.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "audio/*"
-            songsLauncher.launch("audio/*")
+            songsLauncher.launch(intent)
         }
 
-        binding.uploadbible.setOnClickListener {
+        binding.uploadBible.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "audio/*"
-            bibleLauncher.launch("audio/*")
+            bibleLauncher.launch(intent)
         }
     }
 
-    private val songsLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            val fileName = getFileName(it)
-            val storageRef = FirebaseStorage.getInstance().reference.child("songs/$fileName")
-            storageRef.putFile(it)
-                .addOnSuccessListener {
-                    storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        val db = FirebaseFirestore.getInstance()
-                        val category = binding.categoryEditText.text.toString()
-                        val song = hashMapOf(
-                            "id" to fileName,
-                            "title" to fileName,
-                            "url" to downloadUrl.toString()
-                        )
-                        db.collection("songs").document(category).collection("songs").add(song)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Song uploaded successfully", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed to upload song", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to upload song", Toast.LENGTH_SHORT).show()
-                }
-        }
-    }
+    val songsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            it.data?.data?.let { audioUri ->
+                val fileName = getFileName(audioUri)
+                if (fileName != null) {
+                    val storageRef = FirebaseStorage.getInstance().reference.child("songs/$fileName")
 
-    private val bibleLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            val fileName = getFileName(it)
-            val storageRef = FirebaseStorage.getInstance().reference.child("songs/$fileName")
-            storageRef.putFile(it)
-                .addOnSuccessListener {
-                    storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        val db = FirebaseFirestore.getInstance()
-                        val bibleCategory = binding.bibleEditText.text.toString()
-                        val bible = hashMapOf(
-                            "id" to fileName,
-                            "title" to fileName,
-                            "url" to downloadUrl.toString()
-                        )
-                        db.collection("songs").document(bibleCategory).collection("songs").add(bible)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Bible uploaded successfully", Toast.LENGTH_SHORT).show()
+                    storageRef.putFile(audioUri)
+                        .addOnSuccessListener {
+                            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                                val title = binding.songTitleEditText.text.toString()
+                                val songId = UUID.randomUUID().toString()
+                                saveSongToFirestore(songId, title, uri.toString())
                             }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed to upload Bible", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        }
+                        .addOnFailureListener { exception ->
+                            Toast.makeText(this, "Song Upload Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    Toast.makeText(this, "Failed to get file name", Toast.LENGTH_SHORT).show()
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to upload Bible", Toast.LENGTH_SHORT).show()
-                }
-        }
-    }
-
-    private fun getFileName(uri: Uri): String {
-        var result: String? = null
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.use {
-            it.moveToFirst()
-            val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            if (nameIndex >= 0) {
-                result = it.getString(nameIndex)
             }
         }
-        return result ?: uri.toString()
+    }
+
+    private fun getFileName(uri: Uri?): String? {
+        var fileName: String? = null
+        uri?.let {
+            contentResolver.query(it, null, null, null, null)?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                    if (nameIndex != -1) {
+                        fileName = cursor.getString(nameIndex)
+                    }
+                }
+            }
+        }
+        return fileName
+    }
+
+    private fun saveSongToFirestore(id: String, title: String, url: String) {
+        val db = FirebaseFirestore.getInstance()
+        val songData = mapOf(
+            "id" to id,
+            "title" to title,
+            "url" to url
+        )
+
+
+        db.collection("songs").document(id).set(songData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Song Added to Firestore", Toast.LENGTH_SHORT).show()
+
+                val selectedCategory = binding.categorySpinner.selectedItem.toString()
+
+                val categoryRef = db.collection("category").document(selectedCategory)
+
+                categoryRef.update("songs", FieldValue.arrayUnion(id))
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Song added to category '$selectedCategory'", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        Toast.makeText(this, "Failed to add song to category: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Failed to Add to Firestore: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    val bibleLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            it.data?.data?.let { audioUri ->
+                val fileName = getFileName(audioUri)
+                if (fileName != null) {
+                    val storageRef =
+                        FirebaseStorage.getInstance().reference.child("songs/$fileName")
+
+                    storageRef.putFile(audioUri)
+                        .addOnSuccessListener {
+                            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                                val title = binding.bibleEditText.text.toString()
+                                val songId = UUID.randomUUID().toString()
+                                saveBibleToFirestore(songId, title, uri.toString())
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Toast.makeText(
+                                this,
+                                "Bible Upload Failed: ${exception.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                } else {
+                    Toast.makeText(this, "Failed to get file name", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun saveBibleToFirestore(id: String, title: String, url: String) {
+        val db = FirebaseFirestore.getInstance()
+        val songData = mapOf(
+            "id" to id,
+            "title" to title,
+            "url" to url
+        )
+
+
+        db.collection("songs").document(id).set(songData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Song Added to Firestore", Toast.LENGTH_SHORT).show()
+
+                val selectedCategory = binding.bibleSpinner.selectedItem.toString()
+
+                val categoryRef = db.collection("Bible").document(selectedCategory)
+
+                categoryRef.update("songs", FieldValue.arrayUnion(id))
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Bible added to category '$selectedCategory'", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        Toast.makeText(this, "Failed to add bible to category: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Failed to Add to Firestore: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
