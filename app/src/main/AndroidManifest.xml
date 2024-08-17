@@ -18,12 +18,14 @@
         <activity
             android:name=".BibleChapter"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".BibleList"
             />
 
         <activity
             android:name=".BibleList"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".AdminPanel"
             android:exported="false"

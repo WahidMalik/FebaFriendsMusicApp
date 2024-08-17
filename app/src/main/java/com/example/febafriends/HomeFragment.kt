@@ -3,40 +3,36 @@ package com.example.febafriends
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.febafriends.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var originalCategoryList: List<CategoryModel>
-
-    private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val searchView = view.findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.searchView)
+        val categoryRecycleView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.categoryRecycleView)
+
         getCategoryData()
 
-        binding.searchView.addTextChangedListener(object : TextWatcher {
+        searchView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No action needed here
             }
@@ -54,9 +50,9 @@ class HomeFragment : Fragment() {
                 }
 
                 if (filteredData.isEmpty()) {
-                    binding.categoryRecycleView.visibility = View.GONE
+                    categoryRecycleView.visibility = View.GONE
                 } else {
-                    binding.categoryRecycleView.visibility = View.VISIBLE
+                    categoryRecycleView.visibility = View.VISIBLE
                 }
 
                 categoryAdapter.categoryList = filteredData
@@ -71,19 +67,15 @@ class HomeFragment : Fragment() {
                 originalCategoryList = result.toObjects(CategoryModel::class.java)
                 setRecyclerView(originalCategoryList)
             }.addOnFailureListener { exception ->
-                // Handle the error here
+                Log.e("HomeFragment", "Failed to get category data", exception)
             }
     }
 
     private fun setRecyclerView(categoryList: List<CategoryModel>) {
+        val categoryRecycleView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.categoryRecycleView)
         categoryAdapter = CategoryAdapter(categoryList)
-        binding.categoryRecycleView.adapter = categoryAdapter
+        categoryRecycleView?.adapter = categoryAdapter
         val layoutManager = LinearLayoutManager(requireContext())
-        binding.categoryRecycleView.layoutManager = layoutManager
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        categoryRecycleView?.layoutManager = layoutManager
     }
 }

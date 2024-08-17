@@ -20,7 +20,7 @@ class BibleList : AppCompatActivity() {
         setSupportActionBar(binding.toolbarBiblelist)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        binding.toolbarbiblelist.text = "Bible Chapters"
+        binding.toolbarbiblelist.text = "Bible List"
         binding.toolbarBiblelist.navigationIcon?.setTint(resources.getColor(android.R.color.holo_red_dark))
 
         getBibleData()

@@ -42,4 +42,6 @@ class BibleChapter : AppCompatActivity() {
         binding.chapterrecycleView.layoutManager = LinearLayoutManager(this)
         binding.chapterrecycleView.adapter = bibleAdapter
     }
+
+
 }
